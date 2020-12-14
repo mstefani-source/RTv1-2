@@ -28,14 +28,12 @@ t_rt				*init_data(void)
 
 	data = (t_rt*)malloc(sizeof(t_rt));
 	!data ? error(MALLOC_ERROR, "Malloc error") : 0;
-	SDL_Init(SDL_INIT_EVERYTHING) < 0 ?
-							error(SDL_INIT_ERROR, SDL_GetError()) : 0;
-	data->window = SDL_CreateWindow("RTv1",
-					0, 0, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	SDL_Init(SDL_INIT_EVERYTHING) < 0 ?	error(SDL_INIT_ERROR, SDL_GetError()) : 0;
+//	data->window = SDL_CreateWindow("RTv1", 0, 0, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	data->window = SDL_CreateWindow("RTv1", 0, 0, 640, 480, 0);
 	!(data->window) ? error(WINDOW_CREATE_ERROR, SDL_GetError()) : 0;
 	SDL_GetWindowSize(data->window, &data->w, &data->h);
-	data->renderer = SDL_CreateRenderer(data->window,
-							-1, SDL_RENDERER_ACCELERATED);
+	data->renderer = SDL_CreateRenderer(data->window, -1, SDL_RENDERER_ACCELERATED);
 	!(data->renderer) ? error(RENDER_INIT_ERROR, SDL_GetError()) : 0;
 	data->texture = SDL_CreateTexture(data->renderer, SDL_PIXELFORMAT_RGBA8888,
 									  SDL_TEXTUREACCESS_STREAMING, data->w, data->h);

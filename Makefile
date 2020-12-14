@@ -30,6 +30,7 @@ SRCS = $(SRC_DIR)camera.c\
 		$(PARSER_DIR)read_arg.c
 
 INC = includes/
+INCLUDE = -I/usr/include/ -I/usr/local/lib/
 OBJS = $(SRCS:.c=.o)
 
 ifeq ($(OS),Windows_NT)
@@ -38,8 +39,7 @@ else
 	detected_OS := $(shell uname)
 endif
 ifeq ($(detected_OS),Linux)
-	LIB :=  -L libft -lft -L -lXrandr -lXrender -lXi -lXfixes \
-    	-lXxf86vm -lXext -lX11 -lpthread -lxcb -lXau -lXdmcp -lm -lOpenCL -lrt -lSDL2 -lSDL2_image
+	LIB := -L libft -lft -lm -lOpenCL -lSDL2 -lSDL2_image
 endif
 ifeq ($(detected_OS),Darwin)  
 	LIB = -L libft -lft -framework OpenGL -framework Appkit -framework OpenCL -I SDL2.framework/Headers -F ./ -framework SDL2 -I SDL2_image.framework/Headers -F ./ -framework SDL2_image
@@ -48,7 +48,7 @@ endif
 all: $(NAME)
 
 sources%.o: %.c
-		$(GCC) -c $< -o $@ -I $(INC)
+		$(GCC) -c $< -o $@ -I $(INC) $(INCLUDE)
 
 lib: install
 		make -C libft

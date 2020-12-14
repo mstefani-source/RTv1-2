@@ -64,8 +64,7 @@ void			cl_init(t_cl *cl, int width, int height)
 	cl_int				ret;
 
 	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
-	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_GPU, 1,
-			&cl->device_id, NULL);
+	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 1, &cl->device_id, NULL);
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
 	cl->program = clCreateProgramWithSource(cl->context, cl->count,
 			(const char **)cl->kernel_source, NULL, &ret);

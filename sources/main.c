@@ -148,6 +148,7 @@ int				main(int ac, char **av)
 	cl_init(&data->cl, data->w, data->h);
 	main_loop(data);
 	close_rt(data);
+	cl_free(&data->cl);
 	printf("Exit program\n");
 	return (0);
 }

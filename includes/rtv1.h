@@ -25,6 +25,7 @@ typedef struct			s_cl
 {
 	cl_platform_id		platform_id;
 	cl_device_id		device_id;
+	cl_uint				ret_num_platforms;
 	cl_context			context;
 	cl_command_queue	queue;
 	cl_program			program;

@@ -63,16 +63,22 @@ void			cl_init(t_cl *cl, int width, int height)
 {
 	cl_int				ret;
 
-	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
-	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 1, &cl->device_id, NULL);
+//	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
+	ret = clGetPlatformIDs(1, &cl->platform_id, &cl->ret_num_platforms);
+	printf("%d\n",ret);
+//	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 1, &cl->device_id, NULL);
+	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 2, &cl->device_id, &cl->ret_num_platforms);
+	printf("%d\n",ret);
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);
-	cl->program = clCreateProgramWithSource(cl->context, cl->count,
-			(const char **)cl->kernel_source, NULL, &ret);
+	cl->program = clCreateProgramWithSource(cl->context, cl->count,(const char **)cl->kernel_source, NULL, &ret);
 	ret = clBuildProgram(cl->program, 1, &cl->device_id, NULL, NULL, NULL);
+	printf("%d\n",ret);
 	if (ret < 0)
 		print_log(cl->program, cl->device_id);
 	cl->kernel = clCreateKernel(cl->program, "raytrace", &ret);
+	printf("%d\n",ret);
 	cl->queue = clCreateCommandQueue(cl->context, cl->device_id, 0, &ret);
+	printf("%d\n",ret);
 	cl->dim = 2;
 	cl->global_size[0] = width;
 	cl->global_size[1] = height;

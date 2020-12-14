@@ -1,6 +1,6 @@
 #ifndef RTV1_H
 # define RTV1_H
-
+#define CL_USE_DEPRECATED_OPENCL_1_2_APIS
 # ifdef __APPLE__
 #  include <OpenGL/gl.h>
 #  include <OpenCL/opencl.h>

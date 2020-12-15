@@ -52,7 +52,7 @@ t_rt				*init_data(void)
 void				close_rt(t_rt *data)
 {
 	SDL_DestroyTexture(data->texture);
-	IMG_Quit();
+	
 	SDL_DestroyRenderer(data->renderer);
 	SDL_DestroyWindow(data->window);
 	SDL_Quit();

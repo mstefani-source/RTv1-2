@@ -1,29 +1,5 @@
 #include "../includes/rtv1.h"
 
-static	void	main_loop(t_rt *data)
-{
-	int			quit;
-	SDL_Event	e;
-
-	quit = 0;
-	while (quit != 1)
-	{
-		SDL_RenderClear(data->renderer);
-		data->update_status == 1 ? render(data) : 0;
-		update_texture(data->texture, data->w, data->h, data->res);
-		SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
-		SDL_RenderPresent(data->renderer);
-		while (SDL_PollEvent(&e))
-		{
-			if (e.type == SDL_QUIT ||
-			(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
-				quit = 1;
-			else
-				controller(&e, data);
-		}
-	}
-}
-
 static void print_obj(t_rt *data){
 	printf("obj_size = %d\n", data->parse.obj_size);
 	for (int i = 0; i < data->parse.obj_size; i++){
@@ -130,6 +106,30 @@ void print_camera(t_rt *data){
 	}
 }
 
+static	void	main_loop(t_rt *data)
+{
+	int			quit;
+	SDL_Event	e;
+
+	quit = 0;
+	data->update_status == 1 ? render(data) : 0;
+	update_texture(data->texture, data->w, data->h, data->res);
+	SDL_RenderClear(data->renderer);
+	SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
+	SDL_RenderPresent(data->renderer);
+	while (quit != 1)
+	{
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT ||
+				(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE))
+				quit = 1;
+			else
+				controller(&e, data);
+		}
+	}
+}
+
 int				main(int ac, char **av)
 {
 	t_rt		*data;
@@ -138,10 +138,11 @@ int				main(int ac, char **av)
 	data = init_data();
 	read_arg(av[1], data);
 
+/*
 	print_obj(data);
 	print_light(data);
 	print_camera(data);
-
+*/
 	set_cameras(data->parse.camera, data->parse.camera_size, data->w, data->h);
 	calculate_triangle_normals(&data->parse);
 	data->cl.kernel_source = get_kernel_source(&data->cl, data->cl_path);

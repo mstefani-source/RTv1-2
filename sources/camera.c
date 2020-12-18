@@ -45,9 +45,7 @@ void		update_camera(t_camera *camera)
 	camera->origin = camera->look_from;
 	camera->horizontal = mult_vec_scal(u, camera->viewport_width);
 	camera->vertical = mult_vec_scal(v, camera->viewport_height);
-	camera->upper_left_corner = vec_sub(camera->origin,
-									mult_vec_scal(camera->horizontal, 0.5));
-	camera->upper_left_corner = vec_add(camera->upper_left_corner,
-									mult_vec_scal(camera->vertical, 0.5));
+	camera->upper_left_corner = vec_sub(camera->origin,	mult_vec_scal(camera->horizontal, 0.5));
+	camera->upper_left_corner = vec_add(camera->upper_left_corner, mult_vec_scal(camera->vertical, 0.5));
 	camera->upper_left_corner = vec_sub(camera->upper_left_corner, w);
 }

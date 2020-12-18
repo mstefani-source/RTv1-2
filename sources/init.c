@@ -2,7 +2,7 @@
 
 static	char		*return_path(void)
 {
-	return ("kernels/raytrace.cl");
+	return ("../kernels/raytrace.cl");
 }
 
 float				*new_random_array(int w, int h, int samples)
@@ -32,18 +32,20 @@ t_rt				*init_data(void)
 //	data->window = SDL_CreateWindow("RTv1", 0, 0, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	data->window = SDL_CreateWindow("RTv1", 0, 0, 640, 480, 0);
 	!(data->window) ? error(WINDOW_CREATE_ERROR, SDL_GetError()) : 0;
+
 	SDL_GetWindowSize(data->window, &data->w, &data->h);
+
 	data->renderer = SDL_CreateRenderer(data->window, -1, SDL_RENDERER_ACCELERATED);
 	!(data->renderer) ? error(RENDER_INIT_ERROR, SDL_GetError()) : 0;
-	data->texture = SDL_CreateTexture(data->renderer, SDL_PIXELFORMAT_RGBA8888,
-									  SDL_TEXTUREACCESS_STREAMING, data->w, data->h);
+
+	data->texture = SDL_CreateTexture(data->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, data->w, data->h);
 	!(data->texture) ? error(TEXTURE_LOAD_ERROR, SDL_GetError()) : 0;
+
 	data->cl_path = return_path();
 	data->samples = 1;
 	data->current_camera = 0;
 	data->randoms = new_random_array(data->w, data->h, data->samples);
-	if (!(data->res = (float*)malloc(sizeof(float)
-									 * data->w * data->h * 4)))
+	if (!(data->res = (float*)malloc(sizeof(float) * data->w * data->h * 4)))
 		error(MALLOC_ERROR, "result buffer malloc error");
 	data->update_status = 1;
 	return (data);
@@ -52,7 +54,6 @@ t_rt				*init_data(void)
 void				close_rt(t_rt *data)
 {
 	SDL_DestroyTexture(data->texture);
-	
 	SDL_DestroyRenderer(data->renderer);
 	SDL_DestroyWindow(data->window);
 	SDL_Quit();

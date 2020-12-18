@@ -33,7 +33,7 @@ cl_float3		vec_cross(cl_float3 v1, cl_float3 v2)
 
 cl_float3		vec_normalize(cl_float3 v)
 {
-	double l;
+	float l;
 
 	l = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	if (l >= .00001f)
@@ -43,7 +43,7 @@ cl_float3		vec_normalize(cl_float3 v)
 	return (v);
 }
 
-cl_float3		mult_vec_scal(cl_float3 v, double s)
+cl_float3		mult_vec_scal(cl_float3 v, float s)
 {
 	cl_float3 res;
 

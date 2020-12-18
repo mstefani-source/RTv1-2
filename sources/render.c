@@ -58,11 +58,9 @@ void				render(t_rt *rt)
 
 	buffers = create_buffers(rt);
 	load_kernels(rt, buffers);
-	clEnqueueNDRangeKernel(rt->cl.queue, rt->cl.kernel, rt->cl.dim, NULL,
-							rt->cl.global_size, NULL, 0, NULL, NULL);
+	clEnqueueNDRangeKernel(rt->cl.queue, rt->cl.kernel, rt->cl.dim, NULL, rt->cl.global_size, NULL, 0, NULL, NULL);
 	clFinish(rt->cl.queue);
-	clEnqueueReadBuffer(rt->cl.queue, buffers.output_buffer, CL_TRUE,
-			0, sizeof(float) * rt->w * rt->h * 4, rt->res, 0, NULL, NULL);
+	clEnqueueReadBuffer(rt->cl.queue, buffers.output_buffer, CL_TRUE, 0, sizeof(float) * rt->w * rt->h * 4, rt->res, 0, NULL, NULL);
 	clFinish(rt->cl.queue);
 	clReleaseMemObject(buffers.output_buffer);
 	clReleaseMemObject(buffers.obj_buffer);

@@ -49,12 +49,10 @@ static	void	print_log(cl_program program, cl_device_id device_id)
 	char	*log;
 	size_t	log_size;
 
-	clGetProgramBuildInfo(program, device_id,
-							CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
+	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
 	log = (char *)malloc(sizeof(char) * log_size);
 	log[log_size] = '\0';
-	clGetProgramBuildInfo(program, device_id,
-							CL_PROGRAM_BUILD_LOG, log_size + 1, log, NULL);
+	clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size + 1, log, NULL);
 	ft_printf("%s\n", log);
 	free(log);
 }
@@ -63,10 +61,8 @@ void			cl_init(t_cl *cl, int width, int height)
 {
 	cl_int				ret;
 
-//	ret = clGetPlatformIDs(1, &cl->platform_id, NULL);
 	ret = clGetPlatformIDs(1, &cl->platform_id, &cl->ret_num_platforms);
 	printf("%d\n",ret);
-//	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 1, &cl->device_id, NULL);
 	ret = clGetDeviceIDs(cl->platform_id, CL_DEVICE_TYPE_CPU, 2, &cl->device_id, &cl->ret_num_platforms);
 	printf("%d\n",ret);
 	cl->context = clCreateContext(NULL, 1, &cl->device_id, NULL, NULL, &ret);

@@ -1,4 +1,4 @@
-GCC = gcc -Wall -Wextra -Werror
+GCC = gcc -Wall -Wextra -Werror -B /opt/intel/opencl 
 NAME = RTv1
 SRC_DIR = sources/
 CONTROLLERS_DIR = $(SRC_DIR)controllers/
@@ -30,7 +30,7 @@ SRCS = $(SRC_DIR)camera.c\
 		$(PARSER_DIR)read_arg.c
 
 INC = includes/
-INCLUDE = -I/usr/include/ -I/usr/local/lib/
+INCLUDE = -I/opt/intel/opencl/include -I/usr/include/ -I/usr/local/lib/
 OBJS = $(SRCS:.c=.o)
 
 ifeq ($(OS),Windows_NT)

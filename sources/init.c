@@ -2,7 +2,7 @@
 
 static	char		*return_path(void)
 {
-	return ("../kernels/raytrace.cl");
+	return ("kernels/raytrace.cl");
 }
 
 float				*new_random_array(int w, int h, int samples)
@@ -34,7 +34,6 @@ t_rt				*init_data(void)
 	!(data->window) ? error(WINDOW_CREATE_ERROR, SDL_GetError()) : 0;
 
 	SDL_GetWindowSize(data->window, &data->w, &data->h);
-
 	data->renderer = SDL_CreateRenderer(data->window, -1, SDL_RENDERER_ACCELERATED);
 	!(data->renderer) ? error(RENDER_INIT_ERROR, SDL_GetError()) : 0;
 
